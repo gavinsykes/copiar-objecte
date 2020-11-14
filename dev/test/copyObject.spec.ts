@@ -1,4 +1,4 @@
-import copyObject from '../src/copyObject';
+import { copyObject } from '../src/copyObject';
 import { expect } from 'chai';
 import 'mocha';
 
@@ -22,16 +22,14 @@ const original = {
   }
 };
 
-const copied: { [index: string]: any } = copyObject(original) as {
-  [index: string]: any;
-};
+const copied: Record<string, unknown> = copyObject(original);
 
 copied.a = 1;
 copied.b = 'b';
 copied.c = [3, 4];
-copied.d.a = 1;
-copied.d.b = 'b';
-copied.d.c = [1, 2, 3, 4];
+(copied.d as Record<string, unknown>).a = 1;
+(copied.d as Record<string, unknown>).b = 'b';
+(copied.d as Record<string, unknown>).c = [1, 2, 3, 4];
 
 original.a = 'aaa';
 original.b = 22;
@@ -53,25 +51,25 @@ describe('copied.b', () => {
 
 describe('copied.c', () => {
   it('should be [3,4]', () => {
-    expect(arrayCompare(copied.c, [3, 4])).to.equal(true);
+    expect(arrayCompare(copied.c as Array<unknown>, [3, 4])).to.equal(true);
   });
 });
 
 describe('copied.d.a', () => {
   it('should be 1', () => {
-    expect(copied.d.a).to.equal(1);
+    expect((copied.d as Record<string, unknown>).a).to.equal(1);
   });
 });
 
 describe('copied.d.b', () => {
   it('should be b', () => {
-    expect(copied.d.b).to.equal('b');
+    expect((copied.d as Record<string, unknown>).b).to.equal('b');
   });
 });
 
 describe('copied.d.c', () => {
   it('should be [1,2,3,4]', () => {
-    expect(arrayCompare(copied.d.c, [1, 2, 3, 4])).to.equal(true);
+    expect(arrayCompare((copied.d as Record<string, unknown>).c as Array<unknown>, [1, 2, 3, 4])).to.equal(true);
   });
 });
 

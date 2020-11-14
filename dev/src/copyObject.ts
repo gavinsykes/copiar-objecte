@@ -17,8 +17,10 @@ const isObject: (item: unknown) => boolean = function (item) {
  * @returns {Record<string, unknown>} - the cloned object.
  *
  */
-export function copyObject(original: unknown): Record<string, unknown> | undefined {
-  if (!isObject(original)) return undefined;
+export function copyObject(
+  original: unknown
+): Record<string, unknown> {
+  if (!isObject(original)) return {};
   const returnedObject: Record<string, unknown> = {};
   Object.entries(original as Record<string, unknown>).map(
     (c) => (returnedObject[c[0]] = isObject(c[1]) ? copyObject(c[1]) : c[1])
