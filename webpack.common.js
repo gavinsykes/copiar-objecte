@@ -2,8 +2,7 @@ const path = require('path');
 
 module.exports = {
   devtool : 'inline-source-map',
-  entry   : './src/index.ts',
-  mode    : 'production',
+  entry   : './dev/src/index.ts',
   module  : {
     rules : [
       {
@@ -13,7 +12,7 @@ module.exports = {
     ]
   },
   output  : {
-    filename      : 'main.js',
+    filename      : 'index.js',
     library       : 'SVGChrt',
     libraryTarget : 'var',
     path          : path.resolve(__dirname, 'dist')
